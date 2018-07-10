@@ -1,10 +1,8 @@
-# 代码风格折腾记
+# Prettier
 
-- [Prettier](https://prettier.io/)
-- [ESLint](http://eslint.cn/)
-- [TSLint](https://palantir.github.io/tslint/)
+个人翻译
 
-## Prettier
+## 1. 文档
 
 [在线 demo](https://prettier.io/playground/)
 
@@ -28,7 +26,12 @@ foo(arg1, arg2, arg3, arg4);
 它在一行里能全部展示所以它会保持不变。然而我们都遇到过这种情况。
 
 ```js
-foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+);
 ```
 
 我们突然发现之前的格式被破坏了因为它太长了，然后 Prettier 就会小心的将它重新编辑成如下的格式。
@@ -178,3 +181,160 @@ Prettier 会根据 `.prettierignore` 中的文件路径来忽略不需要格式�
   - prettier-vscode
 - WebStorm
   - Built-in support
+
+## 2. 配置
+
+### Print Width
+
+指定每行最大的字符数，默认 80 个字符。
+
+`printWidth: <int>`
+
+```typescript
+// 格式化前
+type ButtonProps = IBaseButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
+```
+
+```typescript
+// 格式化后
+type ButtonProps = IBaseButtonProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement>;
+```
+
+### Tab Width
+
+指定缩进的空格数，默认 2 个空格。
+
+`tabWidth: <int>`
+
+### Tabs
+
+缩进使用 Tab 替代空格。
+
+`useTabs: <bool>`
+
+### Semicolons
+
+语句末尾添加分号。
+
+`semi: <bool>`
+
+参数：
+
+* `true` - 在每一句的语句末尾添加分号。
+* `false` - 仅在每一行的开头添加分号可能会引起 [Automatic Semicolon Insertion](https://segmentfault.com/a/1190000002955405) 错误。
+
+### Quotes
+
+使用单引号替代双引号。
+
+`singleQuote: <bool>`
+
+注意：
+
+* 在 JSX 中永远是双引号这条规则将被忽略。
+* 如果一种引号的数量大于另一种引号，则数量较少的引号将会用来包括字符串 - 例子：`"I'm double quoted"` 结果是 `"I'm double quoted"` and `"This \"example\" is single quoted"` 结果是 `'This "example" is single quoted'`。
+
+### Trailing Commas
+
+多行结尾添加逗号。
+
+`trailingComma: "<none|es5|all>"`
+
+例子：
+
+```js
+// 单行数组不会添加逗号
+const arr = [1, 2, 3];
+```
+
+```js
+// 多行数组会添加逗号
+const arr = [
+  1,
+  2,
+  3,
+];
+```
+
+### Bracket Spacing
+
+在对象的 key-value 前后添加空格。
+
+`bracketSpacing: <bool>`
+
+参数：
+
+* `true` - `{ foo: bar }`
+* `false` - `{foo: bar}`
+
+### JSX Brackets
+
+在多行属性的 JSX 元素末尾紧跟一个 `>` 符号而不是单独在新的一行里添加。（不适用于自闭和元素）
+
+`jsxBracketSameLine: <bool>`
+
+参数：
+
+* `true` -
+
+```jsx
+<button
+  className="prettier-class"
+  id="prettier-id"
+  onClick={this.handleClick}>
+  Click Here
+</button>
+```
+
+* `false` -
+
+```jsx
+<button
+  className="prettier-class"
+  id="prettier-id"
+  onClick={this.handleClick}
+>
+  Click Here
+</button>
+```
+
+### Arrow Function Parentheses
+
+单个参数的箭头函数是否要用括号包裹参数。
+
+`arrowParens: "<avoid|always>"`
+
+### Range
+
+对于选中部分的代码进行格式化。（目前不是特别理解，可能类似于鼠标选中的部分代码）
+
+`rangeStart: <int>`
+
+`rangeEnd: <int>`
+
+### Parser
+
+指定使用的解析器。
+
+可以在配置文件中通过 ```overrides``` 来指定不同类型的文件使用不同的解析器。
+
+例子：
+
+```json
+{
+  "overrides": [
+    {
+      "files": "*.less",
+      "options": {
+        "parser": "less"
+      }
+    }
+  ]
+}
+```
+
+`parser: "<string>"`
+
+`parser: require("./my-parser")`
+

@@ -1,4 +1,4 @@
-# 编码风格
+# 个人配置仓库
 
 规范个人和团队的编码风格以及使用到的相关插件
 
@@ -19,4 +19,6 @@
 ## ESLint
 
 [http://eslint.cn/](http://eslint.cn/)
+
+## TypeScript
 
